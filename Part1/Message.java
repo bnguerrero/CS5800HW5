@@ -1,5 +1,4 @@
-package CS5800HW5;
-
+package CS5800HW5.Part1;
 import java.util.List;
 
 
@@ -7,9 +6,8 @@ public class Message
 {
     private User sender;
     private List<User> recipients;
-    private String content;
+    private String content = "";
     private double timeStamp;
-    
 
     public Message(User sender, List<User> recipients, String content, double timeStamp)
     {
