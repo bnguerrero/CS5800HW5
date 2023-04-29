@@ -1,11 +1,13 @@
 package CS5800HW5.Part1;
 
+import java.sql.Date;
+
 public class MessageMemento 
 {
     private String state;
-    private double timeStamp;
+    private Date timeStamp;
 
-    public MessageMemento(String content, double timeStamp)
+    public MessageMemento(String content, Date timeStamp)
     {
         this.state = content;
         this.timeStamp = timeStamp;
@@ -20,11 +22,11 @@ public class MessageMemento
     {
         this.state = state;
     }
-    public double getTimeStamp()
+    public Date getTimeStamp()
     {
         return timeStamp;
     }
-    public void setTimeStamp(double timeStamp)
+    public void setTimeStamp(Date timeStamp)
     {
         this.timeStamp = timeStamp;
     }

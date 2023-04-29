@@ -5,12 +5,14 @@ public class User
 {
     private String name;
     private Message messages;
+    private ChatServer chatServer;
 
     private MessageMemento memento = new MessageMemento(messages.getContent(),messages.getTimeStamp());
 
-    public User(String name)
+    public User(String name,ChatServer chatServer)
     {
         this.name = name;
+        this.chatServer = chatServer;
     }
     
     public String getName()
@@ -20,7 +22,7 @@ public class User
 
     public void writeMessage(String text)
     {
-        
+        Message message = new Message(this, recipients, content);
     }
 
     public void undoMessage()
@@ -28,9 +30,14 @@ public class User
         memento.getState();
     }
 
-    public void sendMessage()
+    public void sendMessage(String message)
     {
-        System.out.println(messages.getContent());
+        chatServer.send(message,this);
+    }
+
+    public void receive(String message)
+    {
+        System.out.println();
     }
 
 
