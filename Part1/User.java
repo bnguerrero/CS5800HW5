@@ -1,44 +1,70 @@
-
 package CS5800HW5.Part1;
+
+import java.util.List;
 
 public class User 
 {
-    private String name;
-    private Message messages;
+    String name; 
+    boolean blocked;
     private ChatServer chatServer;
+    private ChatHistory chatHistory;
+    private Message message;
+    private MessageMemento memento;
 
-    private MessageMemento memento = new MessageMemento(messages.getContent(),messages.getTimeStamp());
-
-    public User(String name,ChatServer chatServer)
+    public User(String name, ChatServer chatServer)
     {
         this.name = name;
         this.chatServer = chatServer;
+        this.chatHistory = new ChatHistory();
     }
-    
+
     public String getName()
     {
         return name;
     }
-
-    public void writeMessage(String text)
+    public void sendMessage(List<User> recipients, String content)
     {
-        Message message = new Message(this, recipients, content);
+        Message message = new Message(this,recipients, content);
+        chatServer.send(message);
+        this.message = message;
+        memento = new MessageMemento(message.getContent(), message.getTimeStamp());
+        chatHistory.addMessage(message);
+    }
+    public void recieveMessage()
+    {
+        System.out.println("recieved message" + message.toString()); 
+    }
+    public void undoLastMessage()
+    {
+        if(message != null && memento != null)
+        {
+            message.setContent(memento.getContent());
+            message.setTimeStamp(memento.getTimeStamp());
+            System.out.println("message '" + message.getContent()+ "' undone.");
+            chatHistory.removeLastMessage();
+        }
+        else
+        {
+            System.out.println("no message to undo");
+        }
+    }
+    public void setBlocked(boolean blocked)
+    {
+        this.blocked = blocked;
     }
 
-    public void undoMessage()
+    public boolean isBlocked()
     {
-        memento.getState();
+        return blocked;
+    }
+    
+    public User getUser()
+    {
+        return new User(this.name, this.chatServer);
     }
 
-    public void sendMessage(String message)
+    public List<Message> getChatHistory()
     {
-        chatServer.send(message,this);
+        return chatHistory.getMessages();
     }
-
-    public void receive(String message)
-    {
-        System.out.println();
-    }
-
-
 }

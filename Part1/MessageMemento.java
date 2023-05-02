@@ -1,33 +1,22 @@
 package CS5800HW5.Part1;
-
-import java.sql.Date;
+import java.util.Date;
 
 public class MessageMemento 
 {
-    private String state;
+    private String content;
     private Date timeStamp;
 
     public MessageMemento(String content, Date timeStamp)
     {
-        this.state = content;
+        this.content = content;
         this.timeStamp = timeStamp;
     }
-
-    public String getState()
+    public String getContent()
     {
-        return state;
-    }
-
-    public void setState(String state)
-    {
-        this.state = state;
+        return content;
     }
     public Date getTimeStamp()
     {
         return timeStamp;
-    }
-    public void setTimeStamp(Date timeStamp)
-    {
-        this.timeStamp = timeStamp;
     }
 }
