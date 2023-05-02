@@ -23,7 +23,7 @@ public class Driver
        bri.undoLastMessage();
        bri.recieveMessage();
        spam.sendMessage(chat1.getRecipients(), "This is the IRS...");
-       jj.getChatHistory();
+       bri.getChatHistory();
 
        
 

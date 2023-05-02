@@ -63,7 +63,16 @@ public class User
         return new User(this.name, this.chatServer);
     }
 
-    public List<Message> getChatHistory()
+
+    public void getChatHistory()
+    {
+        List<Message> chatHistory = this.getMessages();
+        for(Message message : chatHistory)
+        {
+            System.out.println(message.getContent());
+        }
+    }
+    public List<Message> getMessages()
     {
         return chatHistory.getMessages();
     }
