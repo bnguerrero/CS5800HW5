@@ -1,8 +1,9 @@
 package CS5800HW5.Part1;
 
+import java.util.Iterator;
 import java.util.List;
 
-public class User 
+public class User implements Iterable<Message>
 {
     String name; 
     boolean blocked;
@@ -75,5 +76,48 @@ public class User
     public List<Message> getMessages()
     {
         return chatHistory.getMessages();
+    }
+
+
+
+    public Iterator<Message> iterator() {
+        return chatHistory.iterator();
+    }
+
+    public Iterator iterator(User userToSearchWith) 
+    {
+        return new searchMessagesByUser(chatHistory.iterator(), userToSearchWith);
+    }
+
+    private class searchMessagesByUser implements Iterator<Message> {
+        private Iterator<Message> iterator;
+        private User userToSearchWith;
+
+        public searchMessagesByUser(Iterator<Message> iterator, User userToSearchWith) {
+            this.iterator = iterator;
+            this.userToSearchWith = userToSearchWith;
+        }
+
+        public boolean hasNext() {
+            while (iterator.hasNext()) {
+                Message message = iterator.next();
+                if (message.getSender().equals(userToSearchWith.getName()) || message.getRecipients().equals(userToSearchWith.getName())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Message next() {
+            if (hasNext()) {
+                return iterator.next();
+            } else {
+                return null;
+            }
+        }
+
+        public void remove() {
+            iterator.remove();
+        }
     }
 }
